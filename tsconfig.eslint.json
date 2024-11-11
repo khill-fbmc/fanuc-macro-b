@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.json",
+  "files": [
+    "vite.config.ts"
+  ],
   "include": [
     "./src/**/*.ts",
     "./demo/**/*.ts",
@@ -7,5 +10,7 @@
     "./scripts/*.ts",
     "./playground/**/*.ts*"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -1,4 +1,4 @@
-import { MonacoThemeDef } from "../chrysalis";
+import type { MonacoThemeDef } from "../../types";
 
 export const gcodeDarkTheme: MonacoThemeDef = {
   base: "vs-dark",
@@ -7,8 +7,8 @@ export const gcodeDarkTheme: MonacoThemeDef = {
     // { token: "number", foreground: "#FFE38A" },
     // { token: "macro-var", foreground: "#F1AAFF" },
     // { token: "operators", foreground: "#cfcf4f" },
-    { token: "comment", foreground: "#C09D70", fontStyle: "italic" }
+    { token: "comment", foreground: "#C09D70", fontStyle: "italic" },
     // { token: "custom-date", foreground: "008800" }
   ],
-  colors: {}
+  colors: {},
 };

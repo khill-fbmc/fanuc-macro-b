@@ -1,9 +1,6 @@
-import { ILexingResult, IToken } from "chevrotain";
+import type { IToken } from "chevrotain";
 
-import { ParsingResultWithLexingErrors } from "../types";
-import { interpreter } from "./MacroInterpreter";
-import { MacroLexer } from "./MacroLexer";
-import { parser } from "./MacroParser";
+import { interpret } from "./utils/interpret";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function round(num: number, decimals = 5): number {
@@ -29,48 +26,6 @@ export function unbox<T>(arr: T | T[]): T {
  */
 export function getImage(token: IToken | IToken[]) {
   return unbox(token).image;
-}
-
-/**
- * Tokenize a block of text
- */
-export function lex(inputText: string): ILexingResult {
-  return MacroLexer.tokenize(inputText);
-}
-
-/**
- * Parse a given block of text
- */
-export function parse(text: string): ParsingResultWithLexingErrors {
-  const lexResult = lex(text);
-
-  parser.input = lexResult.tokens;
-
-  return {
-    parser,
-    lexResult,
-    lexErrors: lexResult.errors
-  };
-}
-
-/**
- * Run the full interpreter and generate CST
- */
-export function interpret(text: string, rule: string) {
-  const { parser, lexResult } = parse(text);
-
-  const cst = parser[rule]();
-
-  const result = interpreter.visit(cst);
-
-  return {
-    result,
-    parser,
-    lexResult,
-    interpreter,
-    parseErrors: parser.errors,
-    macros: interpreter.getMacros()
-  };
 }
 
 /**

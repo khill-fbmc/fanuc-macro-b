@@ -1,9 +1,8 @@
 import { tokenMatcher } from "chevrotain";
 import { match } from "ts-pattern";
-import { createEmitter } from "ts-typed-events";
 
-import { VariableRegister } from "../types";
-import {
+import type { VariableRegister } from "../types";
+import type {
   AdditionExpressionCstChildren,
   AtomicExpressionCstChildren,
   BracketExpressionCstChildren,
@@ -14,7 +13,7 @@ import {
   ProgramCstNode,
   ValueLiteralCstChildren,
   VariableAssignmentCstChildren,
-  VariableLiteralCstChildren
+  VariableLiteralCstChildren,
 } from "../types/fanuc";
 import { parser } from "./MacroParser";
 import MacroVariables from "./MacroVariables";
@@ -52,7 +51,7 @@ export class MacroInterpreter extends BaseCstVisitorWithDefaults {
       setValue: (value: number) => {
         this.vars.write(register, value);
         return macro;
-      }
+      },
     };
 
     return macro;
@@ -158,7 +157,7 @@ export class MacroInterpreter extends BaseCstVisitorWithDefaults {
     const values: WatcherValuePayload = {
       register: macro.register,
       curr: NaN,
-      prev: macro.value
+      prev: macro.value,
     };
 
     const value = this.visit(ctx.expression);

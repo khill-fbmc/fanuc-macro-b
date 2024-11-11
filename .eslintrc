@@ -9,7 +9,7 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": "latest",
     "tsconfigRootDir": "./",
     "sourceType": "module",
     "project": "./tsconfig.eslint.json"
@@ -24,7 +24,6 @@
   ],
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:import/errors",
     "plugin:import/typescript",
     "plugin:jest-formatting/strict",
@@ -35,14 +34,47 @@
   ],
   "rules": {
     "sort-imports": "off",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports"
+      }
+    ],
     "import/no-extraneous-dependencies": "off",
     "newline-per-chained-call": [
-      2,
+      "error",
       {
         "ignoreChainWithDepth": 3
       }
     ],
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          [
+            "^\\u0000"
+          ],
+          [
+            "^node:"
+          ],
+          [
+            "^@?\\w"
+          ],
+          [
+            "^"
+          ],
+          [
+            "^\\."
+          ],
+          [
+            "^node:.*\\u0000$",
+            "^@?\\w.*\\u0000$",
+            "^[^.].*\\u0000$",
+            "^\\..*\\u0000$"
+          ]
+        ]
+      }
+    ],
     "simple-import-sort/exports": "error",
     "import/first": "error",
     "import/newline-after-import": "error",

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { zeroPad } from "../helpers";
+import { zeroPad } from "../lib";
 
 export default function Errors({ errors }) {
   return (

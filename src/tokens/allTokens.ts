@@ -36,7 +36,7 @@ import {
   Then,
   Var,
   While,
-  WhiteSpace
+  WhiteSpace,
 } from ".";
 
 /**
@@ -87,5 +87,5 @@ export const allTokens = [
   NumericValue,
   BooleanOperator,
   AdditionOperator,
-  MultiplicationOperator
+  MultiplicationOperator,
 ];

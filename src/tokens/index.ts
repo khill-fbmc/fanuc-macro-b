@@ -4,7 +4,7 @@ import {
   GreaterThanOrEq,
   LessThan,
   LessThanOrEq,
-  NotEqualTo
+  NotEqualTo,
 } from "./boolean";
 import { CloseBracket, CloseParen, OpenBracket, OpenParen } from "./brackets";
 import {
@@ -13,7 +13,7 @@ import {
   Brackets,
   ControlFlowKeyword,
   MultiplicationOperator,
-  NumericValue
+  NumericValue,
 } from "./categories";
 import { Do, GotoLine, If, Then, While } from "./controlFlow";
 import {
@@ -33,7 +33,7 @@ import {
   Product,
   ProgramNumber,
   Var,
-  WhiteSpace
+  WhiteSpace,
 } from "./tokens";
 
 export {
@@ -73,7 +73,7 @@ export {
   Then,
   Var,
   While,
-  WhiteSpace
+  WhiteSpace,
 };
 
 /**
@@ -122,5 +122,5 @@ export const allTokens = [
   NumericValue,
   BooleanOperator,
   AdditionOperator,
-  MultiplicationOperator
+  MultiplicationOperator,
 ];

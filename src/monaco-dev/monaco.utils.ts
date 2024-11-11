@@ -1,24 +1,24 @@
-import { BaseParser } from "chevrotain";
-import * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
+import type { BaseParser } from "chevrotain";
 
-export type MonacoThemeDef = Monaco.editor.IStandaloneThemeData;
-export type MonacoLangDef =
-  | Monaco.languages.IMonarchLanguage
-  | Monaco.Thenable<Monaco.languages.IMonarchLanguage>;
-export type MonarchTokenizerRule = [match: RegExp, token: string];
+import type {
+  Monaco,
+  MonacoLangDef,
+  MonacoThemeDef,
+  MonarchTokenizerRule,
+} from "../../types";
 
 /**
  * Given a monaco instance, this method will return two bound functions,
  * wrapping the monarch in its' chrysalis per-se, to enable further customization.
  */
-export function chrysalis(monaco: typeof Monaco) {
+export function getMonacoUtils(monaco: typeof Monaco) {
   return {
     registerCustomLanguage(languageId: string, languageDef: MonacoLangDef) {
       return registerCustomLanguage(monaco, languageId, languageDef);
     },
     registerCustomTheme(themeName: string, themeData: MonacoThemeDef) {
       return registerCustomTheme(monaco, themeName, themeData);
-    }
+    },
   };
 }
 
@@ -49,6 +49,8 @@ export function registerCustomLanguage<T extends typeof Monaco>(
 
 /**
  * Given a Chevrotain parser, generate a Monarch language definition
+ *
+ * @todo look into this, and actually generate it
  */
 export function generateMonarchLanguage<T extends BaseParser>(
   parser: T,
@@ -60,7 +62,7 @@ export function generateMonarchLanguage<T extends BaseParser>(
   return {
     brackets,
     tokenizer: {
-      root: rules
-    }
+      root: rules,
+    },
   };
 }

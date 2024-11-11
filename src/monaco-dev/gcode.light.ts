@@ -1,4 +1,4 @@
-import { MonacoThemeDef } from "../chrysalis";
+import type { MonacoThemeDef } from "../../types";
 
 export const gcodeLightTheme: MonacoThemeDef = {
   base: "vs",
@@ -7,9 +7,9 @@ export const gcodeLightTheme: MonacoThemeDef = {
     { token: "custom-info", foreground: "808080" },
     { token: "custom-error", foreground: "ff0000", fontStyle: "bold" },
     { token: "custom-notice", foreground: "FFA500" },
-    { token: "custom-date", foreground: "008800" }
+    { token: "custom-date", foreground: "008800" },
   ],
   colors: {
-    "editor.foreground": "#000000"
-  }
+    "editor.foreground": "#000000",
+  },
 };

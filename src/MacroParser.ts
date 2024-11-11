@@ -6,7 +6,7 @@ import {
   AdditionOperator,
   BooleanOperator,
   MultiplicationOperator,
-  NumericValue
+  NumericValue,
 } from "./tokens/categories";
 import { GotoLine, If, Then } from "./tokens/controlFlow";
 import {
@@ -20,7 +20,7 @@ import {
   Newline,
   Percent,
   ProgramNumber,
-  Var
+  Var,
 } from "./tokens/tokens";
 
 export class MacroParser extends CstParser {
@@ -41,7 +41,7 @@ export class MacroParser extends CstParser {
     });
     this.OR([
       { ALT: () => this.SUBRULE(this.bracketExpression) },
-      { ALT: () => this.SUBRULE(this.VariableLiteral) }
+      { ALT: () => this.SUBRULE(this.VariableLiteral) },
     ]);
   });
 
@@ -74,7 +74,7 @@ export class MacroParser extends CstParser {
   public ValueLiteral = this.RULE("ValueLiteral", () => {
     this.OR([
       { ALT: () => this.SUBRULE(this.VariableLiteral) },
-      { ALT: () => this.SUBRULE(this.NumericLiteral) }
+      { ALT: () => this.SUBRULE(this.NumericLiteral) },
     ]);
   });
 
@@ -149,7 +149,7 @@ export class MacroParser extends CstParser {
     this.CONSUME(CloseBracket);
     this.OR([
       { ALT: () => this.CONSUME(Then) },
-      { ALT: () => this.CONSUME(GotoLine) }
+      { ALT: () => this.CONSUME(GotoLine) },
     ]);
   });
 
@@ -162,7 +162,7 @@ export class MacroParser extends CstParser {
       { ALT: () => this.SUBRULE(this.bracketExpression) },
       { ALT: () => this.SUBRULE(this.functionExpression) },
       { ALT: () => this.SUBRULE(this.NumericLiteral) },
-      { ALT: () => this.SUBRULE(this.VariableLiteral) }
+      { ALT: () => this.SUBRULE(this.VariableLiteral) },
     ]);
   });
 
@@ -214,7 +214,7 @@ export class MacroParser extends CstParser {
       SEP: Newline,
       DEF: () => {
         this.SUBRULE(this.line);
-      }
+      },
     });
   });
 
@@ -230,7 +230,7 @@ export class MacroParser extends CstParser {
       { ALT: () => this.SUBRULE(this.ProgramNumberLine) },
       { ALT: () => this.SUBRULE(this.variableAssignment) },
       { ALT: () => this.SUBRULE(this.conditionalExpression) },
-      { ALT: () => this.SUBRULE(this.addresses) }
+      { ALT: () => this.SUBRULE(this.addresses) },
       // { ALT: () => this.SUBRULE(this.atomicExpression) }
     ]);
   });

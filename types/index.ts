@@ -1,9 +1,11 @@
-import { ILexingError, ILexingResult } from "chevrotain";
-import type * as Monaco from "monaco-editor";
+import type { ILexingError, ILexingResult } from "chevrotain";
+import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 
-import { MacroParser } from "../src/MacroParser";
+import type { MacroParser } from "../src/MacroParser";
 
-export type { Monaco };
+export { Monaco };
+
+export type StandaloneEditor = Monaco.editor.IStandaloneCodeEditor;
 
 export interface ParsingResultWithLexingErrors extends IParsingResult {
   lexErrors: ILexingError[];
@@ -20,4 +22,25 @@ export interface VariableRegister {
   setValue: (value: number) => this;
 }
 
-export type StandaloneEditor = Monaco.editor.IStandaloneCodeEditor;
+export type MonacoThemeDef = Monaco.editor.IStandaloneThemeData;
+
+export type MonacoLangDef =
+  | Monaco.languages.IMonarchLanguage
+  | Monaco.Thenable<Monaco.languages.IMonarchLanguage>;
+
+export type MonarchTokenizerRule = [match: RegExp, token: string];
+
+export type MonarchLanguageBracket = {
+  /**
+   * open bracket
+   */
+  open: string;
+  /**
+   * closing bracket
+   */
+  close: string;
+  /**
+   * token class
+   */
+  token: string;
+};

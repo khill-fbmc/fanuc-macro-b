@@ -5,35 +5,35 @@ import { BooleanOperator } from "./categories";
 export const EqualTo = createToken({
   name: "EqualTo",
   pattern: /EQ/,
-  categories: BooleanOperator
+  categories: BooleanOperator,
 });
 
 export const NotEqualTo = createToken({
   name: "NotEqualTo",
   pattern: /NE/,
-  categories: BooleanOperator
+  categories: BooleanOperator,
 });
 
 export const LessThan = createToken({
   name: "LessThan",
   pattern: /LT/,
-  categories: BooleanOperator
+  categories: BooleanOperator,
 });
 
 export const LessThanOrEq = createToken({
   name: "LessThanOrEq",
   pattern: /LE/,
-  categories: BooleanOperator
+  categories: BooleanOperator,
 });
 
 export const GreaterThan = createToken({
   name: "GreaterThan",
   pattern: /GT/,
-  categories: BooleanOperator
+  categories: BooleanOperator,
 });
 
 export const GreaterThanOrEq = createToken({
   name: "GreaterThanOrEq",
   pattern: /GE/,
-  categories: BooleanOperator
+  categories: BooleanOperator,
 });

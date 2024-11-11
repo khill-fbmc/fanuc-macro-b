@@ -1,69 +1,69 @@
 {
   "name": "fanuc-macro-b",
   "version": "0.1.0",
-  "description": "A Lexer, Parser, and Interpreter for Fanuc Macro B NC files.",
-  "author": {
-    "email": "kevinkhill@pm.me",
-    "name": "Kevin Hill",
-    "url": "https://github.com/kevinkhill"
-  },
-  "license": "MIT",
   "private": true,
-  "source": "./src/index.ts",
+  "type": "module",
+  "description": "A Lexer, Parser, and Interpreter for Fanuc Macro B NC files.",
   "repository": {
     "type": "git",
     "url": "https://github.com/kevinkhill/fanuc-macro-b.git"
   },
-  "scripts": {
-    "test": "jest",
-    "lint": "eslint --ext \".ts\" ./src ./demo",
-    "fix": "yarn lint --fix",
-    "types": "yarn tsnd ./scripts/gen_dts_signatures.ts",
-    "build": "yarn parcel build ./playground/index.html",
-    "play": "yarn parcel serve --port 3000 ./playground/index.html",
-    "demo:vars": "yarn tsnd --respawn ./demo/variables.demo.ts",
-    "demo:intr": "yarn tsnd --respawn ./demo/interpret.demo.ts"
+  "license": "MIT",
+  "author": {
+    "name": "Kevin Hill",
+    "email": "kevinkhill@pm.me",
+    "url": "https://github.com/kevinkhill"
   },
-  "lint-staged": {
-    "*.ts": "eslint --cache --fix './src/**/*.ts'"
+  "source": "./src/index.ts",
+  "scripts": {
+    "build": "vite build ./playground/index.html",
+    "demo:intr": "tsnd --respawn ./demo/interpret.demo.ts",
+    "demo:vars": "tsnd --respawn ./demo/variables.demo.ts",
+    "dev": "vite serve ./playground",
+    "lint": "eslint --ext \".ts\" ./src ./demo",
+    "test": "jest",
+    "types": "tsnd ./scripts/gen_dts_signatures.ts"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix './src/**/*.ts'"
+  },
   "dependencies": {
-    "@monaco-editor/react": "^4.3.1",
-    "chevrotain": "^10.0.0",
+    "chevrotain": "^10.5.0",
     "ts-pattern": "^3.3.5"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.0",
-    "@types/react": "^17.0.39",
-    "@types/react-dom": "^17.0.11",
-    "@typescript-eslint/eslint-plugin": "^5.9.1",
-    "@typescript-eslint/parser": "^5.9.1",
-    "@uiw/react-codemirror": "^4.3.3",
-    "autoprefixer": "^10.4.2",
-    "eslint": "^8.6.0",
+    "@monaco-editor/react": "^4.6.0",
+    "@types/jest": "^27.5.2",
+    "@types/react": "^17.0.83",
+    "@types/react-dom": "^17.0.25",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vitejs/plugin-react-swc": "^3.7.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jest": "^25.3.4",
-    "eslint-plugin-jest-formatting": "^3.0.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-simple-import-sort": "^6.0.0",
-    "jest": "^27.4.7",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jest": "^25.7.0",
+    "eslint-plugin-jest-formatting": "^3.1.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "eslint-plugin-simple-import-sort": "^6.0.1",
+    "jest": "^27.5.1",
     "jest-extended": "^2.0.0",
     "monaco-editor": "^0.32.1",
-    "parcel": "^2.2.1",
-    "postcss": "^8.4.6",
-    "prettier": "^2.5.1",
+    "postcss": "^8.4.48",
+    "prettier": "^2.8.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "tailwindcss": "^3.0.18",
-    "ts-jest": "^27.1.3",
+    "tailwindcss": "^3.4.14",
+    "ts-jest": "^27.1.5",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.5.4"
+    "typescript": "^4.9.5",
+    "vite": "^5.4.11"
   }
 }

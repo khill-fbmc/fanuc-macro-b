@@ -1,33 +1,21 @@
-import Editor, { EditorProps, OnChange, OnMount } from "@monaco-editor/react";
-import { IRecognitionException } from "chevrotain";
-import React, { useRef, useState } from "react";
+import type { EditorProps, OnChange, OnMount } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
+import type { IRecognitionException } from "chevrotain";
+import React, { Suspense, useRef, useState } from "react";
 
-import { chrysalis, evaluate, interpreter } from "../../src";
-import { gcodeDarkTheme } from "../../src/monaco-dev/gcode-lang/gcode-dark";
-import { gcodeLanguage } from "../../src/monaco-dev/gcode-lang/gcode-lang";
-import { gcodeLightTheme } from "../../src/monaco-dev/gcode-lang/gcode-light";
-import { Monaco, StandaloneEditor } from "../../types";
+import * as FanucMacroB from "../src/index";
+import type { StandaloneEditor } from "../src/monaco-dev";
 import Errors from "./components/Errors";
 import ValueTable from "./components/ValueTable";
-import { getExampleCode } from "./getExampleCode";
-import useEditorTheme from "./hooks/useEditorTheme";
-
-function handleEditorWillMount(monaco: typeof Monaco) {
-  const { registerCustomLanguage, registerCustomTheme } = chrysalis(monaco);
-
-  monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
-
-  registerCustomLanguage("gcode", gcodeLanguage);
-  registerCustomTheme("gcode-dark", gcodeDarkTheme);
-  registerCustomTheme("gcode-light", gcodeLightTheme);
-}
+import { useEditorTheme } from "./hooks/useEditorTheme";
+import { exampleCode } from "./lib/example";
+import { registerMonacoResources } from "./lib/monaco";
 
 export function App() {
   const editorRef = useRef<StandaloneEditor>();
   const [macros, setMacros] = useState<[number, number][]>([]);
   const [errors, setErrors] = useState<IRecognitionException[]>([]);
-  const { editorTheme, setEditorThemeDark, setEditorThemeLight } =
-    useEditorTheme("gcode-dark");
+  const { editorTheme, toggleEditorTheme } = useEditorTheme("gcode-dark");
 
   const [checked, setChecked] = useState(false);
 
@@ -36,11 +24,11 @@ export function App() {
   };
 
   const [editorOptions, setEditorOptions] = useState<EditorProps["options"]>({
-    minimap: { enabled: false }
+    minimap: { enabled: false },
   });
 
   const parseGCode = code => {
-    const { parseErrors, macros } = evaluate(code);
+    const { parseErrors, macros } = FanucMacroB.evaluate(code);
 
     setErrors(parseErrors);
     setMacros(Array.from(macros));
@@ -52,11 +40,11 @@ export function App() {
 
   const handleEditorDidMount: OnMount = editor => {
     editorRef.current = editor;
-    parseGCode(getExampleCode());
+    parseGCode(exampleCode);
   };
 
   [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(register => {
-    interpreter.watchMacroVar(register, update => {
+    FanucMacroB.interpreter.watchMacroVar(register, update => {
       console.log("macro variable updated!", update);
     });
   });
@@ -83,16 +71,18 @@ export function App() {
           >
             {`\u00BB`} Try editing some of the values!
           </p>
-          <Editor
-            height="90vh"
-            theme={editorTheme}
-            defaultLanguage="gcode"
-            options={editorOptions}
-            defaultValue={getExampleCode()}
-            onChange={handleEditorChange}
-            onMount={handleEditorDidMount}
-            beforeMount={handleEditorWillMount}
-          />
+          <Suspense fallback={<EditorError />}>
+            <Editor
+              height="90vh"
+              theme={editorTheme}
+              defaultLanguage="gcode"
+              options={editorOptions}
+              defaultValue={exampleCode}
+              onChange={handleEditorChange}
+              onMount={handleEditorDidMount}
+              beforeMount={registerMonacoResources}
+            />
+          </Suspense>
         </div>
         <div className="flex flex-col flex-grow bg-neutral-900">
           <h1 className="px-2 py-3 text-3xl shadow-neutral-800 bg-neutral-800 text-violet-500">
@@ -108,4 +98,8 @@ export function App() {
       </div>
     </div>
   );
+}
+
+function EditorError() {
+  return <h1>There was an error loading the editor</h1>;
 }

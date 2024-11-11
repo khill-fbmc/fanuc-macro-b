@@ -1,6 +1,6 @@
 import "jest-extended";
 
-import { TokenType } from "chevrotain";
+import type { TokenType } from "chevrotain";
 
 declare global {
   namespace jest {
