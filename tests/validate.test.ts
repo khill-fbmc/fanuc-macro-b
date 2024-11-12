@@ -1,4 +1,6 @@
-import { validate } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { validate } from "../src";
 
 const NC_SAMPLE = `%
 O9901 (PALLET RUNNER)

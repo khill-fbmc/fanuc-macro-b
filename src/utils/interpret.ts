@@ -20,3 +20,21 @@ export function interpret(text: string, rule: string) {
     macros: interpreter.getMacros(),
   };
 }
+
+/**
+ * Sugar method to search for valid gcode lines
+ */
+export function evaluate(text: string) {
+  return interpret(text, "lines");
+}
+
+/**
+ * Sugar method to search for a valid program.
+ *
+ * A valid program is any valid lines, wrapped with `%`
+ * as the first and last lines. A program number is
+ * required as well as the second line.
+ */
+export function validate(text: string) {
+  return interpret(text, "program");
+}

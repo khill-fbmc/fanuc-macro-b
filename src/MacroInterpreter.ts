@@ -1,7 +1,7 @@
 import { tokenMatcher } from "chevrotain";
 import { match } from "ts-pattern";
 
-import type { VariableRegister } from "../types";
+import type { VariableRegister } from "./types";
 import type {
   AdditionExpressionCstChildren,
   AtomicExpressionCstChildren,
@@ -16,9 +16,9 @@ import type {
   VariableLiteralCstChildren,
 } from "../types/fanuc";
 import { parser } from "./MacroParser";
-import MacroVariables from "./MacroVariables";
-import { Plus, Product } from "./tokens/tokens";
-import { degreeToRadian, getImage, radianToDegree } from "./utils";
+import { MacroVariables } from "./MacroVariables";
+import { Plus, Product } from "./tokens/basic";
+import { degreeToRadian, getImage, radianToDegree } from "./utils/helpers";
 
 // const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
 const BaseCstVisitorWithDefaults =

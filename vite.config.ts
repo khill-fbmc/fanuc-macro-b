@@ -15,5 +15,11 @@ export default defineConfig({
       },
     },
   },
+  test: {
+    env: {
+      NEARLY_EQUAL_PRECISION: "5",
+    },
+    setupFiles: ["./tests/setup.ts"], // Include the setup file where the matcher is defined
+  },
   plugins: [react()],
 });

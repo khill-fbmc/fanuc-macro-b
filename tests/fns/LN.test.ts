@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=LN[5]
@@ -15,18 +17,18 @@ describe("Function: LN[]", () => {
   });
 
   it("can calculate LN[5]", () => {
-    expect(result.get(1)).toBe(1.60944);
+    expect(result.get(1)).toBeNearlyEqual(1.60944);
   });
 
   it("can calculate LN[36]", () => {
-    expect(result.get(2)).toBe(2.30259);
+    expect(result.get(2)).toBeNearlyEqual(2.30259);
   });
 
   it("can calculate LN[49]", () => {
-    expect(result.get(3)).toBe(3.89182);
+    expect(result.get(3)).toBeNearlyEqual(3.89182);
   });
 
   it("can calculate LN[144]", () => {
-    expect(result.get(4)).toBe(4.96981);
+    expect(result.get(4)).toBeNearlyEqual(4.96981);
   });
 });

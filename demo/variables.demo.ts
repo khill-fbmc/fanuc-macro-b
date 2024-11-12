@@ -1,5 +1,5 @@
 import { interpreter } from "../src/MacroInterpreter";
-import { evaluate } from "../src/utils";
+import { evaluate } from "../src/utils/helpers";
 
 interpreter.setMacroVars([
   [7, 3],

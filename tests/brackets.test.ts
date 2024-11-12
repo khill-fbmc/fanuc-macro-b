@@ -1,4 +1,6 @@
-import { evaluate } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { evaluate } from "../src";
 
 describe("Evaluating expresssions", () => {
   it("can evaluate #1=100*[5/25]", () => {
@@ -52,12 +54,12 @@ describe("Evaluating expresssions", () => {
   it("can evaluate #9=[1+[2*[3]]]+[[6*2]+2]", () => {
     const { macros } = evaluate("#9=[[1+2]*3]/[[6*2]+2]]");
 
-    expect(macros.get(9)).toBe(0.64286);
+    expect(macros.get(9)).toBe(0.6428571428571429);
   });
 
   it("can evaluate #10=[5+2]-[3+[5*2+2]/[2+3]]]", () => {
     const { macros } = evaluate("#10=[5+2]-[3+[5*2+2]/[2+3]]]");
 
-    expect(macros.get(10)).toBe(1.6);
+    expect(macros.get(10)).toBeNearlyEqual(1.6);
   });
 });

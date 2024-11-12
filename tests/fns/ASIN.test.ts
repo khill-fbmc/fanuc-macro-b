@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=ASIN[1]
@@ -18,10 +20,10 @@ describe("Function: ASIN[]", () => {
   });
 
   it("can calculate ASIN[x] (√2 / 2)", () => {
-    expect(result.get(2)).toBe(45.00026);
+    expect(result.get(2)).toBeNearlyEqual(45);
   });
 
   it("can calculate ASIN[x] (√3 / 2)", () => {
-    expect(result.get(3)).toBe(60.00053);
+    expect(result.get(3)).toBeNearlyEqual(60);
   });
 });

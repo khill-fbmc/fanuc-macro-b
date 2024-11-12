@@ -4,7 +4,7 @@ import type { IRecognitionException } from "chevrotain";
 import React, { Suspense, useRef, useState } from "react";
 
 import * as FanucMacroB from "../src/index";
-import type { StandaloneEditor } from "../src/monaco-dev";
+import type { StandaloneEditor } from "../types";
 import Errors from "./components/Errors";
 import ValueTable from "./components/ValueTable";
 import { useEditorTheme } from "./hooks/useEditorTheme";
@@ -13,6 +13,7 @@ import { registerMonacoResources } from "./lib/monaco";
 
 export function App() {
   const editorRef = useRef<StandaloneEditor>();
+
   const [macros, setMacros] = useState<[number, number][]>([]);
   const [errors, setErrors] = useState<IRecognitionException[]>([]);
   const { editorTheme, toggleEditorTheme } = useEditorTheme("gcode-dark");

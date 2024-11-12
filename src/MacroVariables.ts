@@ -1,8 +1,3 @@
-function range(start, stop) {
-  stop = stop + 1; // inclusive
-  return Array.from({ length: (stop - start) / 1 }, (_, i) => start + i);
-}
-
 export class MacroVariables {
   private _vars: Map<number, number | typeof NaN>;
 
@@ -37,4 +32,7 @@ export class MacroVariables {
   }
 }
 
-export default MacroVariables;
+function range(start, stop) {
+  stop = stop + 1; // inclusive
+  return Array.from({ length: (stop - start) / 1 }, (_, i) => start + i);
+}

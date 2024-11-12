@@ -5,7 +5,7 @@ import type {
   MonacoLangDef,
   MonacoThemeDef,
   MonarchTokenizerRule,
-} from "../../types";
+} from "../types";
 
 /**
  * Given a monaco instance, this method will return two bound functions,
@@ -56,8 +56,8 @@ export function generateMonarchLanguage<T extends BaseParser>(
   parser: T,
   brackets: Monaco.languages.IMonarchLanguageBracket[],
   rules: MonarchTokenizerRule[]
-): MonacoLangDef {
-  console.log(parser);
+): Monaco.languages.IMonarchLanguage {
+  // console.log(parser);
 
   return {
     brackets,

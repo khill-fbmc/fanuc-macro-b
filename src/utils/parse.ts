@@ -1,4 +1,4 @@
-import type { ParsingResultWithLexingErrors } from "../../types";
+import type { ParsingResultWithLexingErrors } from "../types";
 import { parser } from "../MacroParser";
 import { lex } from "./lex";
 

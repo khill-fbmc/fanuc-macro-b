@@ -1,4 +1,4 @@
-import { evaluate } from "../src/utils";
+import { evaluate } from "../src/utils/helpers";
 
 const code = `
 #1=100*[5/25]

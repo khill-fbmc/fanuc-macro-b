@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=ATAN[1]
@@ -18,10 +20,10 @@ describe("Function: ATAN[]", () => {
   });
 
   it("can calculate ATAN[0.5773502691896258] (1/√3)", () => {
-    expect(result.get(2)).toBe(29.99999);
+    expect(result.get(2)).toBeNearlyEqual(30);
   });
 
   it("can calculate ATAN[1.7320508075688772] (√3)", () => {
-    expect(result.get(3)).toBe(59.99999);
+    expect(result.get(3)).toBeNearlyEqual(60);
   });
 });

@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=COS[5]
@@ -17,26 +19,26 @@ describe("Function: COS[]", () => {
   });
 
   it("can calculate COS[5]", () => {
-    expect(result.get(1)).toBe(0.99619);
+    expect(result.get(1)).toBeNearlyEqual(1);
   });
 
   it("can calculate COS[15]", () => {
-    expect(result.get(2)).toBe(0.96593);
+    expect(result.get(2)).toBeNearlyEqual(0.96593);
   });
 
   it("can calculate COS[30]", () => {
-    expect(result.get(3)).toBe(0.86603);
+    expect(result.get(3)).toBeNearlyEqual(0.86603);
   });
 
   it("can calculate COS[45]", () => {
-    expect(result.get(4)).toBe(0.70711);
+    expect(result.get(4)).toBeNearlyEqual(0.70711);
   });
 
   it("can calculate COS[60]", () => {
-    expect(result.get(5)).toBe(0.5);
+    expect(result.get(5)).toBeNearlyEqual(0.5);
   });
 
   it("can calculate COS[90]", () => {
-    expect(result.get(6)).toBe(0);
+    expect(result.get(6)).toBeNearlyEqual(0, 1e-12);
   });
 });

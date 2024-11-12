@@ -1,7 +1,7 @@
 import { Lexer } from "chevrotain";
 
-import { allTokens } from "./tokens/allTokens";
+import { tokenSet } from "./tokens/token-set";
 
-const MacroLexer = new Lexer(allTokens);
+const MacroLexer = new Lexer(tokenSet);
 
 export { MacroLexer };

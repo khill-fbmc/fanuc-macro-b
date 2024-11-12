@@ -1,7 +1,7 @@
 import { createToken } from "chevrotain";
 
 import { ControlFlowKeyword } from "./categories";
-import { Address } from "./tokens";
+import { Address } from "./basic";
 
 export const GotoLine = createToken({
   name: "GotoLine",

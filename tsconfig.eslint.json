@@ -4,13 +4,11 @@
     "vite.config.ts"
   ],
   "include": [
-    "./src/**/*.ts",
-    "./demo/**/*.ts",
-    "./types/**/*.ts",
-    "./scripts/*.ts",
-    "./playground/**/*.ts*"
-  ],
-  "exclude": [
-    "node_modules"
+    "./src",
+    "./tests",
+    "./types",
+    "./demo",
+    "./scripts",
+    "./playground"
   ]
 }

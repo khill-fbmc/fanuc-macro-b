@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=FIX[5.251]

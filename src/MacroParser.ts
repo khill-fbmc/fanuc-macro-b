@@ -1,14 +1,5 @@
 import { CstParser } from "chevrotain";
 
-import { allTokens } from "./tokens/allTokens";
-import { CloseBracket, OpenBracket } from "./tokens/brackets";
-import {
-  AdditionOperator,
-  BooleanOperator,
-  MultiplicationOperator,
-  NumericValue,
-} from "./tokens/categories";
-import { GotoLine, If, Then } from "./tokens/controlFlow";
 import {
   Address,
   BuiltinFunctions,
@@ -21,11 +12,20 @@ import {
   Percent,
   ProgramNumber,
   Var,
-} from "./tokens/tokens";
+} from "./tokens/basic";
+import { CloseBracket, OpenBracket } from "./tokens/brackets";
+import {
+  AdditionOperator,
+  BooleanOperator,
+  MultiplicationOperator,
+  NumericValue,
+} from "./tokens/categories";
+import { GotoLine, If, Then } from "./tokens/control-flow";
+import { tokenSet } from "./tokens/token-set";
 
 export class MacroParser extends CstParser {
   constructor() {
-    super(allTokens);
+    super(tokenSet);
     this.performSelfAnalysis();
   }
 

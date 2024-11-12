@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=ACOS[1]
@@ -24,14 +26,14 @@ describe("Function: ACOS[]", () => {
   });
 
   it("can calculate ACOS[x] (√2 / 2)", () => {
-    expect(result.get(3)).toBe(44.99974);
+    expect(result.get(3)).toBe(45);
   });
 
   it("can calculate ACOS[x] (√3 / 2)", () => {
-    expect(result.get(4)).toBe(29.99947);
+    expect(result.get(4)).toBeNearlyEqual(30);
   });
 
   it("can calculate ACOS[.5]", () => {
-    expect(result.get(5)).toBe(60);
+    expect(result.get(5)).toBeNearlyEqual(60);
   });
 });

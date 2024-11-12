@@ -1,4 +1,4 @@
-import { evaluate } from "../src/utils";
+import { evaluate } from "../src/utils/helpers";
 
 const code = `
 #850=.875

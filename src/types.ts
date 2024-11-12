@@ -1,7 +1,7 @@
 import type { ILexingError, ILexingResult } from "chevrotain";
 import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 
-import type { MacroParser } from "../src/MacroParser";
+import type { MacroParser } from "./MacroParser";
 
 export { Monaco };
 

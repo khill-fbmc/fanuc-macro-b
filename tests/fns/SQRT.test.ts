@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=SQRT[2]
@@ -16,7 +18,7 @@ describe("Function: SQRT[]", () => {
   });
 
   it("can calculate SQRT[2]", () => {
-    expect(result.get(1)).toBe(1.41421);
+    expect(result.get(1)).toBeNearlyEqual(1.41421);
   });
 
   it("can calculate SQRT[36]", () => {
@@ -32,6 +34,6 @@ describe("Function: SQRT[]", () => {
   });
 
   it("can calculate SQRT[3173]", () => {
-    expect(result.get(5)).toBe(56.32939);
+    expect(result.get(5)).toBeNearlyEqual(56.32939);
   });
 });

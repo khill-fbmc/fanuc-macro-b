@@ -1,4 +1,6 @@
-import { interpret } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { interpret } from "../../src";
 
 const code = `
 #1=SIN[5]
@@ -17,26 +19,26 @@ describe("Function: SIN[]", () => {
   });
 
   it("can calculate SIN[5]", () => {
-    expect(result.get(1)).toBe(0.08716);
+    expect(result.get(1)).toBeNearlyEqual(0.08716);
   });
 
   it("can calculate SIN[15]", () => {
-    expect(result.get(2)).toBe(0.25882);
+    expect(result.get(2)).toBeNearlyEqual(0.25882);
   });
 
   it("can calculate SIN[30]", () => {
-    expect(result.get(3)).toBe(0.5);
+    expect(result.get(3)).toBeNearlyEqual(0.5);
   });
 
   it("can calculate SIN[45]", () => {
-    expect(result.get(4)).toBe(0.70711);
+    expect(result.get(4)).toBeNearlyEqual(0.70711);
   });
 
   it("can calculate SIN[60]", () => {
-    expect(result.get(5)).toBe(0.86603);
+    expect(result.get(5)).toBeNearlyEqual(0.86603);
   });
 
   it("can calculate SIN[90]", () => {
-    expect(result.get(6)).toBe(1);
+    expect(result.get(6)).toBeNearlyEqual(1);
   });
 });

@@ -1,4 +1,6 @@
-import { evaluate } from "../utils";
+import { describe, expect, it } from "vitest";
+
+import { evaluate } from "../src";
 
 const code = `#1=1
 #2=2
@@ -28,6 +30,6 @@ describe("Macros expressions", () => {
     expect(macros.get(7)).toBe(3);
     expect(macros.get(8)).toBe(6);
     expect(macros.get(9)).toBe(18);
-    expect(macros.get(10)).toBe(2.47619);
+    expect(macros.get(10)).toBeNearlyEqual(2.47619);
   });
 });

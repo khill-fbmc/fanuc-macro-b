@@ -1,16 +1,6 @@
-import { toMatchToken } from "../testing/toMatchToken";
-import {
-  Address,
-  Decimal,
-  Equals,
-  Integer,
-  Minus,
-  Newline,
-  Var
-} from "../tokens/tokens";
-import { lex } from "../utils";
+import { describe, expect, it } from "vitest";
 
-expect.extend({ toMatchToken });
+import { lex, Tokens } from "../src";
 
 describe("Lexer", () => {
   it("Can lex a G10 line", () => {
@@ -37,23 +27,23 @@ describe("Lexer", () => {
     expect(tokens[15].image).toEqual("B");
     expect(tokens[16].image).toEqual("90.");
 
-    expect(tokens[0]).toMatchToken(Address);
-    expect(tokens[1]).toMatchToken(Integer);
-    expect(tokens[2]).toMatchToken(Address);
-    expect(tokens[3]).toMatchToken(Integer);
-    expect(tokens[4]).toMatchToken(Address);
-    expect(tokens[5]).toMatchToken(Integer);
-    expect(tokens[6]).toMatchToken(Address);
-    expect(tokens[7]).toMatchToken(Integer);
-    expect(tokens[8]).toMatchToken(Address);
-    expect(tokens[9]).toMatchToken(Decimal);
-    expect(tokens[10]).toMatchToken(Address);
-    expect(tokens[11]).toMatchToken(Decimal);
-    expect(tokens[12]).toMatchToken(Address);
-    expect(tokens[13]).toMatchToken(Minus);
-    expect(tokens[14]).toMatchToken(Decimal);
-    expect(tokens[15]).toMatchToken(Address);
-    expect(tokens[16]).toMatchToken(Decimal);
+    expect(tokens[0]).toMatchToken(Tokens.Address);
+    expect(tokens[1]).toMatchToken(Tokens.Integer);
+    expect(tokens[2]).toMatchToken(Tokens.Address);
+    expect(tokens[3]).toMatchToken(Tokens.Integer);
+    expect(tokens[4]).toMatchToken(Tokens.Address);
+    expect(tokens[5]).toMatchToken(Tokens.Integer);
+    expect(tokens[6]).toMatchToken(Tokens.Address);
+    expect(tokens[7]).toMatchToken(Tokens.Integer);
+    expect(tokens[8]).toMatchToken(Tokens.Address);
+    expect(tokens[9]).toMatchToken(Tokens.Decimal);
+    expect(tokens[10]).toMatchToken(Tokens.Address);
+    expect(tokens[11]).toMatchToken(Tokens.Decimal);
+    expect(tokens[12]).toMatchToken(Tokens.Address);
+    expect(tokens[13]).toMatchToken(Tokens.Minus);
+    expect(tokens[14]).toMatchToken(Tokens.Decimal);
+    expect(tokens[15]).toMatchToken(Tokens.Address);
+    expect(tokens[16]).toMatchToken(Tokens.Decimal);
   });
 
   it("Can lex Mcodes and Newlines", () => {
@@ -75,15 +65,15 @@ describe("Lexer", () => {
     expect(tokens[7].image).toEqual("M");
     expect(tokens[8].image).toEqual("21");
 
-    expect(tokens[0]).toMatchToken(Address);
-    expect(tokens[1]).toMatchToken(Integer);
-    expect(tokens[2]).toMatchToken(Newline);
-    expect(tokens[3]).toMatchToken(Address);
-    expect(tokens[4]).toMatchToken(Minus);
-    expect(tokens[5]).toMatchToken(Decimal);
-    expect(tokens[6]).toMatchToken(Newline);
-    expect(tokens[7]).toMatchToken(Address);
-    expect(tokens[8]).toMatchToken(Integer);
+    expect(tokens[0]).toMatchToken(Tokens.Address);
+    expect(tokens[1]).toMatchToken(Tokens.Integer);
+    expect(tokens[2]).toMatchToken(Tokens.Newline);
+    expect(tokens[3]).toMatchToken(Tokens.Address);
+    expect(tokens[4]).toMatchToken(Tokens.Minus);
+    expect(tokens[5]).toMatchToken(Tokens.Decimal);
+    expect(tokens[6]).toMatchToken(Tokens.Newline);
+    expect(tokens[7]).toMatchToken(Tokens.Address);
+    expect(tokens[8]).toMatchToken(Tokens.Integer);
   });
 
   it("Can lex a line with variables", () => {
@@ -101,13 +91,13 @@ describe("Lexer", () => {
     expect(tokens[5].image).toEqual("Z");
     expect(tokens[6].image).toEqual("1.0");
 
-    expect(tokens[0]).toMatchToken(Address);
-    expect(tokens[1]).toMatchToken(Integer);
-    expect(tokens[2]).toMatchToken(Address);
-    expect(tokens[3]).toMatchToken(Var);
-    expect(tokens[4]).toMatchToken(Integer);
-    expect(tokens[5]).toMatchToken(Address);
-    expect(tokens[6]).toMatchToken(Decimal);
+    expect(tokens[0]).toMatchToken(Tokens.Address);
+    expect(tokens[1]).toMatchToken(Tokens.Integer);
+    expect(tokens[2]).toMatchToken(Tokens.Address);
+    expect(tokens[3]).toMatchToken(Tokens.Var);
+    expect(tokens[4]).toMatchToken(Tokens.Integer);
+    expect(tokens[5]).toMatchToken(Tokens.Address);
+    expect(tokens[6]).toMatchToken(Tokens.Decimal);
   });
 
   it("Can lex a line with a variable assignment", () => {
@@ -122,9 +112,9 @@ describe("Lexer", () => {
     expect(tokens[2].image).toEqual("=");
     expect(tokens[3].image).toEqual("2.5");
 
-    expect(tokens[0]).toMatchToken(Var);
-    expect(tokens[1]).toMatchToken(Integer);
-    expect(tokens[2]).toMatchToken(Equals);
-    expect(tokens[3]).toMatchToken(Decimal);
+    expect(tokens[0]).toMatchToken(Tokens.Var);
+    expect(tokens[1]).toMatchToken(Tokens.Integer);
+    expect(tokens[2]).toMatchToken(Tokens.Equals);
+    expect(tokens[3]).toMatchToken(Tokens.Decimal);
   });
 });

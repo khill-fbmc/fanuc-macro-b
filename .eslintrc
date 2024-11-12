@@ -1,45 +1,46 @@
 {
   "root": true,
   "env": {
-    "es6": true,
-    "jest": true
-  },
-  "globals": {
-    "parseSource": true
+    "es6": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
-    "tsconfigRootDir": "./",
+    "tsconfigRootDir": ".",
     "sourceType": "module",
-    "project": "./tsconfig.eslint.json"
+    "project": [
+      "./tsconfig.eslint.json",
+      "./tests/tsconfig.json"
+    ]
   },
   "plugins": [
-    "jest",
     "import",
     "prettier",
-    "jest-formatting",
     "simple-import-sort",
     "@typescript-eslint"
   ],
   "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/typescript",
-    "plugin:jest-formatting/strict",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:prettier/recommended" // KEEP THIS LAST
   ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
+    },
+    "import/resolver": {
+      // You will also need to install and configure the TypeScript resolver
+      // See also https://github.com/import-js/eslint-import-resolver-typescript#configuration
+      "typescript": true,
+      "node": true
+    }
+  },
   "rules": {
     "sort-imports": "off",
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      {
-        "prefer": "type-imports"
-      }
-    ],
     "import/no-extraneous-dependencies": "off",
     "newline-per-chained-call": [
       "error",
@@ -47,9 +48,22 @@
         "ignoreChainWithDepth": 3
       }
     ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "fixStyle": "separate-type-imports",
+        "prefer": "type-imports"
+      }
+    ],
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "simple-import-sort/exports": "error",
     "simple-import-sort/imports": [
       "error",
       {
+        // The default grouping, but with type imports last as a separate
+        // group, sorting that group like non-type imports are grouped.
         "groups": [
           [
             "^\\u0000"
@@ -74,11 +88,6 @@
           ]
         ]
       }
-    ],
-    "simple-import-sort/exports": "error",
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
-    "import/no-unresolved": "off"
+    ]
   }
 }
