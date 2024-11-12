@@ -9,6 +9,7 @@ describe("Lexer", () => {
 
     expect(errors).toHaveLength(0);
     expect(tokens).toHaveLength(17);
+
     expect(tokens[0].image).toEqual("G");
     expect(tokens[1].image).toEqual("10");
     expect(tokens[2].image).toEqual("G");
@@ -55,6 +56,7 @@ describe("Lexer", () => {
 
     expect(errors).toHaveLength(0);
     expect(tokens).toHaveLength(9);
+
     expect(tokens[0].image).toEqual("M");
     expect(tokens[1].image).toEqual("22");
     expect(tokens[2].image).toEqual("\n");
@@ -83,6 +85,7 @@ describe("Lexer", () => {
 
     expect(errors).toHaveLength(0);
     expect(tokens).toHaveLength(7);
+
     expect(tokens[0].image).toEqual("G");
     expect(tokens[1].image).toEqual("43");
     expect(tokens[2].image).toEqual("H");
@@ -107,6 +110,7 @@ describe("Lexer", () => {
 
     expect(errors).toHaveLength(0);
     expect(tokens).toHaveLength(4);
+
     expect(tokens[0].image).toEqual("#");
     expect(tokens[1].image).toEqual("500");
     expect(tokens[2].image).toEqual("=");
@@ -116,5 +120,32 @@ describe("Lexer", () => {
     expect(tokens[1]).toMatchToken(Tokens.Integer);
     expect(tokens[2]).toMatchToken(Tokens.Equals);
     expect(tokens[3]).toMatchToken(Tokens.Decimal);
+  });
+
+  it("Can lex a line with a function", () => {
+    const inputText = "#1=ABS[-5]";
+
+    const { tokens, errors } = lex(inputText);
+
+    expect(errors).toHaveLength(0);
+    expect(tokens).toHaveLength(8);
+
+    expect(tokens[0].image).toEqual("#");
+    expect(tokens[1].image).toEqual("1");
+    expect(tokens[2].image).toEqual("=");
+    expect(tokens[3].image).toEqual("ABS");
+    expect(tokens[4].image).toEqual("[");
+    expect(tokens[5].image).toEqual("-");
+    expect(tokens[6].image).toEqual("5");
+    expect(tokens[7].image).toEqual("]");
+
+    expect(tokens[0]).toMatchToken(Tokens.Var);
+    expect(tokens[1]).toMatchToken(Tokens.Integer);
+    expect(tokens[2]).toMatchToken(Tokens.Equals);
+    expect(tokens[3]).toMatchToken(Tokens.BuiltinFunction);
+    expect(tokens[4]).toMatchToken(Tokens.OpenBracket);
+    expect(tokens[5]).toMatchToken(Tokens.Minus);
+    expect(tokens[6]).toMatchToken(Tokens.Integer);
+    expect(tokens[7]).toMatchToken(Tokens.CloseBracket);
   });
 });

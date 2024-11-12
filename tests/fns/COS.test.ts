@@ -39,6 +39,6 @@ describe("Function: COS[]", () => {
   });
 
   it("can calculate COS[90]", () => {
-    expect(result.get(6)).toBeNearlyEqual(0, 1e-12);
+    expect(result.get(6)).toBeNearlyEqual(0);
   });
 });

@@ -1,3 +1,4 @@
+export * from "./MacroConstants";
 export { interpreter, MacroInterpreter } from "./MacroInterpreter";
 export { MacroLexer } from "./MacroLexer";
 export { MacroParser, parser } from "./MacroParser";

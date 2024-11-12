@@ -2,7 +2,7 @@ import { CstParser } from "chevrotain";
 
 import {
   Address,
-  BuiltinFunctions,
+  BuiltinFunction,
   Comment,
   Equals,
   Integer,
@@ -124,7 +124,7 @@ export class MacroParser extends CstParser {
    * Calling a Built-In function
    */
   public functionExpression = this.RULE("functionExpression", () => {
-    this.CONSUME(BuiltinFunctions);
+    this.CONSUME(BuiltinFunction);
     this.CONSUME(OpenBracket);
     this.SUBRULE(this.atomicExpression);
     this.CONSUME(CloseBracket);

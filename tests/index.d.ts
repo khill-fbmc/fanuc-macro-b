@@ -5,7 +5,7 @@ import type { IToken, TokenType } from "chevrotain";
 
 interface CustomMatchers<R = unknown> {
   toBeNearlyEqual: (received: number, epislon?: number) => R;
-  toMatchToken: (received: IToken, tokType: TokenType) => R;
+  toMatchToken: (tokType: TokenType) => R;
 }
 
 declare module "vitest" {
