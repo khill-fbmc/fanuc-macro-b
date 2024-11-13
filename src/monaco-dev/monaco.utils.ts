@@ -1,26 +1,14 @@
 import type { BaseParser } from "chevrotain";
 
+import { gcodeDarkTheme } from "./gcode.dark";
+import { gcodeLanguage } from "./gcode.lang";
+import { gcodeLightTheme } from "./gcode.light";
 import type {
   Monaco,
   MonacoLangDef,
   MonacoThemeDef,
   MonarchTokenizerRule,
-} from "../types";
-
-/**
- * Given a monaco instance, this method will return two bound functions,
- * wrapping the monarch in its' chrysalis per-se, to enable further customization.
- */
-export function getMonacoUtils(monaco: typeof Monaco) {
-  return {
-    registerCustomLanguage(languageId: string, languageDef: MonacoLangDef) {
-      return registerCustomLanguage(monaco, languageId, languageDef);
-    },
-    registerCustomTheme(themeName: string, themeData: MonacoThemeDef) {
-      return registerCustomTheme(monaco, themeName, themeData);
-    },
-  };
-}
+} from "./monaco.types";
 
 /**
  * Register a custom theme with a Monaco Editor instance
@@ -45,6 +33,16 @@ export function registerCustomLanguage<T extends typeof Monaco>(
   monaco.languages.register({ id: languageId });
   monaco.languages.setMonarchTokensProvider(languageId, languageDef);
   return monaco;
+}
+
+/**
+ * Register the custom gcode language and themes
+ */
+export function registerMonacoResources(monaco: typeof Monaco) {
+  monaco.languages.typescript.javascriptDefaults.setEagerModelSync(true);
+  registerCustomLanguage(monaco, "gcode", gcodeLanguage);
+  registerCustomTheme(monaco, "gcode-dark", gcodeDarkTheme);
+  registerCustomTheme(monaco, "gcode-light", gcodeLightTheme);
 }
 
 /**

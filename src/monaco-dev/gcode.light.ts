@@ -1,4 +1,6 @@
-import type { MonacoThemeDef } from "../types";
+import type { MonacoThemeDef } from "./monaco.types";
+
+export type GCodeLightTheme = "gcode-light";
 
 export const gcodeLightTheme: MonacoThemeDef = {
   base: "vs",

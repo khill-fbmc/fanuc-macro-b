@@ -1,4 +1,4 @@
-import { MacroInterpreter } from "../lib/FanucMacroB";
+import { MacroInterpreter } from "../../src";
 
 const interpreter = new MacroInterpreter();
 

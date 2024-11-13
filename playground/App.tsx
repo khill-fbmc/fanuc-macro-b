@@ -1,27 +1,26 @@
-import type {
-  EditorProps,
-  Monaco,
-  OnChange,
-  OnMount,
-} from "@monaco-editor/react";
+import type { OnChange, OnMount } from "@monaco-editor/react";
 import { Editor } from "@monaco-editor/react";
 import { Button, ToggleButton } from "@mui/material";
 import type { IRecognitionException } from "chevrotain";
-import type { editor } from "monaco-editor";
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useState } from "react";
 
+import { registerMonacoResources } from "../src";
 import Errors from "./components/Errors";
+import Footer from "./components/Footer";
 import ValueTable from "./components/ValueTable";
-import { useEditorRef } from "./hooks/useEditorRef";
-import { useEditorTheme } from "./hooks/useEditorTheme";
+import {
+  type UseEditorRefHookOptions,
+  useEditorRef,
+} from "./hooks/useEditorRef";
 import { useMacroInterpreter } from "./hooks/useMacroInterpreter";
 import { useToggle } from "./hooks/useToggle";
 import { exampleCode } from "./lib/example";
-import type { StandaloneEditor } from "./lib/FanucMacroB";
-import { MacroInterpreter } from "./lib/FanucMacroB";
-import { registerMonacoResources } from "./lib/monaco";
 
-const interpreter = new MacroInterpreter();
+const MONACO_INIT_OPTIONS: UseEditorRefHookOptions = {
+  theme: "gcode-dark",
+  automaticLayout: true,
+  minimap: { enabled: false },
+};
 
 export function App() {
   const interpreter = useMacroInterpreter();
@@ -29,41 +28,30 @@ export function App() {
   const [errors, setErrors] = useState<IRecognitionException[]>([]);
 
   const {
-    monacoRef,
-    editorRef,
+    refs,
     editorTheme,
     editorOptions,
-    toggleEditorTheme,
-  } = useEditorRef({
-    theme: "gcode-dark",
-    automaticLayout: true,
-    minimap: { enabled: false },
-  });
+    // toggleEditorTheme,
+  } = useEditorRef(MONACO_INIT_OPTIONS);
 
   const [checked, toggleChecked] = useToggle(false);
   const [autoRun, toggleAutoRun] = useToggle(false);
 
-  const handleChange = () => {
-    setChecked(!checked);
-  };
+  // const handleChange = () => {
+  //   setChecked(!checked);
+  // };
 
-  const parseGCode = code => {
-    const result = interpreter.eval(code);
-    console.log(result);
-    const macroValues = Array.from(interpreter.getMacros());
-
+  const editorValueChanged: OnChange = value => {
+    interpreter.eval(`${value}`);
+    console.log(interpreter.getMacroArray());
     setErrors(interpreter.getParser().errors);
-    setMacros(macroValues);
+    setMacros(interpreter.getMacroArray());
   };
 
-  const handleEditorChange: OnChange = value => {
-    parseGCode(value);
-  };
-
-  const handleEditorDidMount: OnMount = (editor, monaco) => {
-    editorRef.current = editor;
-    monacoRef.current = monaco;
-    parseGCode(exampleCode);
+  const onEditorMount: OnMount = (editor, monaco) => {
+    refs.editor.current = editor;
+    refs.monaco.current = monaco;
+    interpreter.eval(exampleCode);
   };
 
   [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(register => {
@@ -73,8 +61,8 @@ export function App() {
   });
 
   return (
-    <div className="flex flex-col overflow-y-hidden h-full bg-neutral-800">
-      <div className="flex flex-row font-bold text-purple-200 border-b border-b-purple-600 bg-violet-900">
+    <div className="flex flex-col overflow-y-hidden h-screen bg-neutral-800">
+      <header className="flex flex-row font-bold text-purple-200 border-b border-b-purple-600 bg-violet-900">
         <div className="grow">
           <h1 className="py-2 pl-4 text-3xl chakra-petch-regular">
             Fanuc Macro B Playground
@@ -87,8 +75,8 @@ export function App() {
             <span className="slider cursor-pointer inset-0 absolute round rounded-full"></span>
           </label>
         </div> */}
-      </div>
-      <div className="flex flex-row h-full">
+      </header>
+      <main className="flex flex-row flex-grow">
         <div className="flex flex-col w-1/2 border-r border-r-purple-600">
           <div className="flex flex-row justify-between">
             <p
@@ -116,12 +104,12 @@ export function App() {
           <Suspense fallback={<EditorError />}>
             <Editor
               theme={editorTheme}
-              defaultLanguage="gcode"
               options={editorOptions}
+              defaultLanguage="gcode"
               defaultValue={exampleCode}
-              onChange={handleEditorChange}
-              onMount={handleEditorDidMount}
               beforeMount={registerMonacoResources}
+              onMount={onEditorMount}
+              onChange={editorValueChanged}
             />
           </Suspense>
         </div>
@@ -136,7 +124,25 @@ export function App() {
             {errors.length > 0 ? <Errors errors={errors} /> : undefined}
           </div>
         </div>
-      </div>
+      </main>
+      <Footer
+        lhs={[
+          {
+            label: "Tacos!",
+            onClick: () => {
+              console.log("tacos");
+            },
+          },
+        ]}
+        rhs={[
+          {
+            label: "Eat",
+            onClick: () => {
+              console.log("eat them");
+            },
+          },
+        ]}
+      />
     </div>
   );
 }

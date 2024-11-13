@@ -5,16 +5,15 @@ import type {
   OnMount,
 } from "@monaco-editor/react";
 import { Editor } from "@monaco-editor/react";
+import type { editor } from "monaco-editor";
 import type { useRef } from "react";
 import React from "react";
-
-import type { StandaloneEditor } from "../lib/FanucMacroB";
 
 type Props = {
   defaultValue: string;
   options: EditorProps["options"];
   theme: "gcode-light" | "gcode-dark" | string;
-  ref: ReturnType<typeof useRef<StandaloneEditor>>;
+  ref: ReturnType<typeof useRef<editor.IStandaloneCodeEditor>>;
   onMount: OnMount;
   onChange: OnChange;
   beforeMount: BeforeMount;

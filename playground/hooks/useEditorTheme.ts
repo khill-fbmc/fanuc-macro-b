@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export type GCodeTheme = "gcode-dark" | "gcode-light";
+import type { GCodeTheme } from "../../src";
 
 export function useEditorTheme(theme: GCodeTheme = "gcode-dark") {
   const [editorTheme, setEditorTheme] = useState<GCodeTheme>(theme);
