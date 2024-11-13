@@ -6,5 +6,6 @@ import { MacroLexer } from "../MacroLexer";
  * Tokenize a block of text
  */
 export function lex(inputText: string): ILexingResult {
-  return MacroLexer.tokenize(inputText);
+  const lexer = new MacroLexer();
+  return lexer.tokenize(inputText);
 }

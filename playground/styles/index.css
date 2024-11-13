@@ -1,3 +1,6 @@
+@import url("./slider.css");
+@import url("./chakra-petch.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -40,54 +40,11 @@
     }
   },
   "rules": {
-    "sort-imports": "off",
-    "import/no-extraneous-dependencies": "off",
-    "newline-per-chained-call": [
-      "error",
-      {
-        "ignoreChainWithDepth": 3
-      }
-    ],
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      {
-        "fixStyle": "separate-type-imports",
-        "prefer": "type-imports"
-      }
-    ],
+    "@typescript-eslint/consistent-type-imports": "error",
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
     "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": [
-      "error",
-      {
-        // The default grouping, but with type imports last as a separate
-        // group, sorting that group like non-type imports are grouped.
-        "groups": [
-          [
-            "^\\u0000"
-          ],
-          [
-            "^node:"
-          ],
-          [
-            "^@?\\w"
-          ],
-          [
-            "^"
-          ],
-          [
-            "^\\."
-          ],
-          [
-            "^node:.*\\u0000$",
-            "^@?\\w.*\\u0000$",
-            "^[^.].*\\u0000$",
-            "^\\..*\\u0000$"
-          ]
-        ]
-      }
-    ]
+    "simple-import-sort/imports": "error"
   }
 }

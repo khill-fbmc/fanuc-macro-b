@@ -1,18 +1,16 @@
-import type { ParsingResultWithLexingErrors } from "../types";
-import { parser } from "../MacroParser";
-import { lex } from "./lex";
+import { MacroLexer } from "../MacroLexer";
+import { MacroParser } from "../MacroParser";
 
 /**
  * Parse a given block of text
  */
-export function parse(text: string): ParsingResultWithLexingErrors {
-  const lexResult = lex(text);
+export function parse(text: string) {
+  const parser = new MacroParser();
+  const lexer = new MacroLexer();
 
-  parser.input = lexResult.tokens;
+  lexer.tokenize(text);
 
-  return {
-    parser,
-    lexResult,
-    lexErrors: lexResult.errors,
-  };
+  parser.setInput(lexer.tokens);
+
+  return { parser, lexer };
 }

@@ -14,15 +14,13 @@ import type {
   VariableAssignmentCstChildren,
   VariableLiteralCstChildren,
 } from "../types/fanuc";
-import { parser } from "./MacroParser";
+import { MacroLexer } from "./MacroLexer";
+import type { MacroParserRunnableRule } from "./MacroParser";
+import { BaseCstVisitorWithDefaults, MacroParser } from "./MacroParser";
 import { MacroVariables } from "./MacroVariables";
 import { Plus, Product } from "./tokens/basic";
 import type { VariableRegister } from "./types";
 import { degreeToRadian, getImage, radianToDegree } from "./utils/helpers";
-
-// const BaseCstVisitor = parser.getBaseCstVisitorConstructor();
-const BaseCstVisitorWithDefaults =
-  parser.getBaseCstVisitorConstructorWithDefaults();
 
 interface WatcherValuePayload {
   prev: number;
@@ -35,10 +33,42 @@ export class MacroInterpreter extends BaseCstVisitorWithDefaults {
   varStack: MacroVariables[] = [];
   varWatches: Array<(payload: WatcherValuePayload) => unknown> = [];
 
-  constructor() {
+  private _lexer: MacroLexer;
+  private _parser: MacroParser;
+
+  constructor(registerSize = 10) {
     super();
-    this.vars = new MacroVariables(1, 10);
+    this._lexer = new MacroLexer();
+    this._parser = new MacroParser();
+    this.vars = new MacroVariables(1, registerSize);
     this.validateVisitor();
+  }
+
+  /**
+   * Evaluate gcode and run the full interpreter to generate the CST
+   */
+  eval(text: string, rule: MacroParserRunnableRule = "lines") {
+    const { tokens } = this._lexer.tokenize(text);
+
+    this._parser.setInput(tokens);
+
+    const cst = this._parser[rule]();
+    const result = this.visit(cst);
+
+    return {
+      errors: {
+        lexer: this._lexer.errors,
+        parser: this._parser.errors,
+      },
+    };
+  }
+
+  getLexer() {
+    return this._lexer;
+  }
+
+  getParser() {
+    return this._parser;
   }
 
   /**
@@ -62,6 +92,13 @@ export class MacroInterpreter extends BaseCstVisitorWithDefaults {
    */
   getMacros(): Map<number, number> {
     return this.vars.getMap();
+  }
+
+  /**
+   * Retrieve the macro variable map as an array
+   */
+  getMacroArray(): [number, number][] {
+    return Array.from(interpreter.getMacros());
   }
 
   /**

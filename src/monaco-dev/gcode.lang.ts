@@ -1,9 +1,9 @@
 /* eslint-disable no-useless-escape */
-import { parser } from "../MacroParser";
+import { MacroParser } from "../MacroParser";
 import { generateMonarchLanguage } from "./monaco.utils";
 
 export const gcodeLanguage = generateMonarchLanguage(
-  parser,
+  new MacroParser(),
   [
     {
       open: "{",

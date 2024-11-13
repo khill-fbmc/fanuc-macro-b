@@ -4,11 +4,11 @@
     "vite.config.ts"
   ],
   "include": [
-    "./src",
-    "./tests",
-    "./types",
-    "./demo",
-    "./scripts",
-    "./playground"
+    "src",
+    "tests",
+    "types",
+    "demo",
+    "scripts",
+    "playground/**/*"
   ]
 }

@@ -32,7 +32,8 @@ export class MacroVariables {
   }
 }
 
-function range(start, stop) {
+function range(start: number, stop: number) {
   stop = stop + 1; // inclusive
-  return Array.from({ length: (stop - start) / 1 }, (_, i) => start + i);
+  const length = Math.floor(stop - start);
+  return Array.from({ length }, (_, i) => start + i);
 }

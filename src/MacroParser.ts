@@ -1,4 +1,4 @@
-import { CstParser } from "chevrotain";
+import { type IToken, CstParser } from "chevrotain";
 
 import {
   Address,
@@ -23,10 +23,16 @@ import {
 import { GotoLine, If, Then } from "./tokens/control-flow";
 import { tokenSet } from "./tokens/token-set";
 
+export type MacroParserRunnableRule = "lines" | "line" | "program";
+
 export class MacroParser extends CstParser {
   constructor() {
     super(tokenSet);
     this.performSelfAnalysis();
+  }
+
+  setInput(input: IToken[]) {
+    this.input = input;
   }
 
   /**
@@ -248,4 +254,5 @@ export class MacroParser extends CstParser {
   });
 }
 
-export const parser = new MacroParser();
+export const BaseCstVisitorWithDefaults =
+  new MacroParser().getBaseCstVisitorConstructorWithDefaults();
